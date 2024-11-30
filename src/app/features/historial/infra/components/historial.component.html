@@ -1,4 +1,45 @@
 <div class="bg-white rounded-lg shadow-md p-6">
+  <div class="border-b-2 border-dark-disabled pb-3">
+    <form [formGroup]="form" (ngSubmit)="search()">
+      <div class="flex justify-between items-center">
+        <h1 class="text-xl font-sans">{{ totalItems }} PEDIDOS</h1>
+        <div class="flex space-x-2">
+          <aplz-input
+            type="date"
+            id="startDate"
+            label="Fecha Inicio"
+            formControlName="startDate"
+            placeholder="Selecciona una fecha"
+          />
+          <aplz-input
+            type="date"
+            id="endDate"
+            label="Fecha Limite"
+            formControlName="endDate"
+            placeholder="Selecciona una fecha"
+          />
+          <button
+            aplzButton
+            aplzAppearance="stroked"
+            aplzColor="dark"
+            size="md"
+            type="submit"
+          >
+            Buscar
+          </button>
+          <button
+            aplzButton
+            aplzAppearance="stroked"
+            aplzColor="danger"
+            size="md"
+            (click)="reset()"
+          >
+            Limpiar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
   <table class="w-full text-left">
     <thead class="text-dark-tertiary font-sans">
       <tr>
@@ -11,15 +52,19 @@
     </thead>
     <tbody class="text-sm font-sans">
       @for (operation of operations; track $index) {
-        <tr class="border-b border-dark-disabled">
-          <td class="py-4 px-4">{{ operation.id }}</td>
-          <td class="py-4 px-4">{{ operation.updatedAt | date: 'dd/MM/yy, HH:mm' }}</td>
-          <td class="py-4 px-4">
-            <span class="bg-special-success px-2 py-1 rounded">{{ operation.status }}</span>
-          </td>
-          <td class="py-4 px-4">${{ operation.price | number : '1.2-2' }}</td>
-          <td class="py-4 px-4"></td>
-        </tr>
+      <tr class="border-b border-dark-disabled">
+        <td class="py-4 px-4">{{ operation.id }}</td>
+        <td class="py-4 px-4">
+          {{ operation.updatedAt | date : "dd/MM/yy, HH:mm" }}
+        </td>
+        <td class="py-4 px-4">
+          <span class="bg-special-success px-2 py-1 rounded">{{
+            operation.status
+          }}</span>
+        </td>
+        <td class="py-4 px-4">${{ operation.price | number : "1.2-2" }}</td>
+        <td class="py-4 px-4"></td>
+      </tr>
       }
     </tbody>
   </table>
@@ -47,17 +92,16 @@
       </button>
 
       <div class="flex items-center space-x-1">
-        @for (page of pages; track $index) {
-          @if (page === currentPage - 1 || page === currentPage || page === currentPage + 1) {
-            <button
-              (click)="onPageChange(page)"
-              [class.bg-dark-background]="currentPage === page"
-              class="px-3 py-1 rounded-md text-sm font-medium text-dark hover:bg-dark-background"
-            >
-              {{ page }}
-            </button>
-          }
-        }
+        @for (page of pages; track $index) { @if (page === currentPage - 1 ||
+        page === currentPage || page === currentPage + 1) {
+        <button
+          (click)="onPageChange(page)"
+          [class.bg-dark-background]="currentPage === page"
+          class="px-3 py-1 rounded-md text-sm font-medium text-dark hover:bg-dark-background"
+        >
+          {{ page }}
+        </button>
+        } }
       </div>
 
       <button
