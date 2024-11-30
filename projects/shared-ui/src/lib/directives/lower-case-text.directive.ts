@@ -1,15 +1,17 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
   standalone: true,
-  selector: 'input[aplazoLowercase]',
+  selector: '[aplazoLowercase]',
   host: {
     '(input)': 'sanitizeValue($event)',
   },
 })
 export class AplazoLowercaseDirective {
+  @Input() aplazoLowercase: boolean = false;
+
   readonly #elementRef: ElementRef<HTMLInputElement> = inject(ElementRef);
   readonly #ngControl = inject(NgControl, {
     self: true,
@@ -17,8 +19,15 @@ export class AplazoLowercaseDirective {
   });
 
   sanitizeValue(event: InputEvent): void {
-    // TODO: sanitize the value to lowercase
-    // TODO: propagate the value to the NgControl
-    // TODO: preserve the cursor position
+    if (!this.aplazoLowercase) return;
+
+    const inputElement = this.#elementRef.nativeElement;
+    const sanitizedValue = inputElement.value.toLowerCase();
+
+    if (this.#ngControl && this.#ngControl.control) {
+      this.#ngControl.control.setValue(sanitizedValue, { emitEvent: false });
+    } else {
+      inputElement.value = sanitizedValue;
+    }
   }
 }

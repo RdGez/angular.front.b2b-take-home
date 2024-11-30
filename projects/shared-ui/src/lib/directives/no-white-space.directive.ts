@@ -1,14 +1,16 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 @Directive({
   standalone: true,
-  selector: 'input[aplazoNoWhiteSpace]',
+  selector: '[aplazoNoWhiteSpace]',
   host: {
     '(input)': 'sanitizeValue()',
   },
 })
 export class AplazoNoWhiteSpaceDirective {
+  @Input() aplazoNoWhiteSpace: boolean = false;
+
   readonly #elementRef: ElementRef<HTMLInputElement> = inject(ElementRef);
   readonly #ngControl = inject(NgControl, {
     self: true,
@@ -16,8 +18,15 @@ export class AplazoNoWhiteSpaceDirective {
   });
 
   sanitizeValue(): void {
-    // TODO: sanitize the value to remove white spaces
-    // TODO: propagate the value to the NgControl
-    // TODO: preserve the cursor position
+    if (!this.aplazoNoWhiteSpace) return;
+
+    const inputElement = this.#elementRef.nativeElement;
+    const sanitizedValue = inputElement.value.replace(/\s/g, '');
+
+    if (this.#ngControl && this.#ngControl.control) {
+      this.#ngControl.control.setValue(sanitizedValue, { emitEvent: false });
+    } else {
+      inputElement.value = sanitizedValue;
+    }
   }
 }

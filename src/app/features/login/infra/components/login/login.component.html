@@ -1,39 +1,45 @@
-<aplz-ui-logo size="lg"></aplz-ui-logo>
+<div class="flex items-center justify-center h-screen">
+  <div class="w-full max-w-md space-y-6">
+    <div class="flex flex-col items-center">
+      <aplz-ui-logo size="lg"></aplz-ui-logo>
+      <p class="text-3xl text-center font-normal text-dark my-16">Iniciar sesión como comerciante</p>
+    </div>
 
-<form [formGroup]="form" (ngSubmit)="login()">
-  <div class="grid gap-6 mb-6 md:grid-cols-2">
-    <div>
-      <label for="username" class="block mb-2 text-sm font-medium text-dark">
-        Correo electrónico
-      </label>
-      <input
-        type="text"
-        id="username"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="my_example_username"
-        formControlName="username"
-      />
-    </div>
-    <div>
-      <label for="password" class="block mb-2 text-sm font-medium text-dark">
-        Password
-      </label>
-      <input
-        type="password"
-        id="password"
-        class="bg-dark-background border border-dark-secondary text-dark rounded-lg focus:ring-special-info focus:border-special-info block w-full p-2.5"
-        placeholder="•••••••••"
-        formControlName="password"
-      />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="space-y-24">
+        <div>
+          <aplz-input
+            id="username"
+            label="Correo electrónico"
+            placeholder="Escribe tu correo electrónico"
+            formControlName="username"
+            [applyLowerCase]="true"
+            [applyNoWhiteSpace]="true"
+            [error]="getErrorMessage('username')"
+          />
+        </div>
+        <div>
+          <aplz-input
+            id="password"
+            type="password"
+            label="Contraseña"
+            placeholder="Escribe tu contraseña"
+            formControlName="password"
+            [error]="getErrorMessage('password')"
+          />
+        </div>
+        <button
+          aplzButton
+          aplzAppearance="stroked"
+          aplzColor="dark"
+          size="md"
+          type="submit"
+          [rounded]="true"
+          [fullWidth]="true"
+        >
+          Iniciar sesión
+        </button>
+      </div>
+    </form>
   </div>
-  <button
-    aplzButton
-    aplzAppearance="stroked"
-    aplzColor="dark"
-    size="md"
-    type="submit"
-  >
-    Entrar
-  </button>
-</form>
+</div>

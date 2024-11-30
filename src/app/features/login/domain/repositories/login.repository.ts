@@ -3,4 +3,5 @@ import { Credentials } from '../entities/credentials';
 
 export abstract class LoginRepository {
   abstract authenticate(credentials: Credentials): Observable<string>;
+  abstract logOut(): Observable<void>;
 }
