@@ -1,0 +1,26 @@
+<h1 class="text-xl font-semibold">RESUMEN DE PEDIDOS</h1>
+
+<div id="container" class="rounded-md bg-[#27292d] p-5 text-white my-3">
+  <div class="flex justify-around space-x-16 items-center">
+    <section class="flex gap-2">
+      <div class="flex flex-col">
+        <label class="font-sans text-sm"> TOTAL DE VENTAS </label>
+        <label class="text-xl font-normal">${{ operationsResume.total | number:'1.2-2' }}</label>
+      </div>
+    </section>
+    <section class="flex gap-2">
+      <div class="bg-white h-16 w-[1px] mx-4"></div>
+      <div class="flex flex-col justify-center">
+        <label class="font-sans text-sm"> NUMERO DE PEDIDOS </label>
+        <label class="text-xl font-normal">{{ operationsResume.totalOperations }}</label>
+      </div>
+    </section>
+    <section class="flex gap-2">
+      <div class="bg-white h-16 w-[1px] mx-4"></div>
+      <div class="flex flex-col justify-center">
+        <label class="font-sans text-sm"> TICKET PROMEDIO </label>
+        <label class="text-xl font-normal">${{ operationsResume.average | number: '1.2-2' }}</label>
+      </div>
+    </section>
+  </div>
+</div>

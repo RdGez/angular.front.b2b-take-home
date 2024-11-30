@@ -29,6 +29,9 @@ let nextUniqueId = 0;
   ],
   template: `
     <span class="aplazo-sidenav-link__label aplazo-sidenav-link__label-pretty">
+      <ng-container *ngIf="icon">
+        <img [src]="icon" alt="icon" class="aplazo-sidenav-link__icon" />
+      </ng-container>
       <ng-content></ng-content>
     </span>
   `,
@@ -48,6 +51,8 @@ export class AplazoSidenavLinkComponent implements OnInit, OnDestroy {
   };
 
   #uid = `aplz-ui-sidenav-link--${nextUniqueId++}`;
+
+  @Input() icon?: string;
 
   @Input()
   set id(value: string) {

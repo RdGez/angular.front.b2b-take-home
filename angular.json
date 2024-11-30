@@ -22,7 +22,13 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+
+                "glob": "db.json",
+                "input": "src/app/features/shared/infra",
+                "output": "/assets"
+              }
             ],
             "styles": [
               "dist/shared-ui/themes/aplazo-light.css",
