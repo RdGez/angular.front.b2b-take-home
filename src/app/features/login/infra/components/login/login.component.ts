@@ -19,7 +19,7 @@ import { LoginUseCase } from '../../../application/login.usecase';
 export class LoginComponent {
   readonly loginUseCase = inject(LoginUseCase);
 
-  readonly username = new FormControl<string>('mysuper4dmin@aplazo.com', {
+  readonly username = new FormControl<string>('', {
     nonNullable: true,
     validators: [
       Validators.required,
@@ -27,7 +27,7 @@ export class LoginComponent {
     ],
   });
 
-  readonly password = new FormControl<string>('mySuperP4ssw0rd', {
+  readonly password = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required],
   });
